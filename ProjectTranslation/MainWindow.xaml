@@ -5,8 +5,130 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTranslation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Crowdin Offline Translation Manager" Height="850" Width="1400" WindowStyle="None" AllowsTransparency="True" Style="{StaticResource DefaultWindow}">
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="L" Command="{Binding LoadFileCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveAllCommand}"/>
+    </Window.InputBindings>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="25"/>
+    </WindowChrome.WindowChrome>
+    
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!--<ColumnDefinition Width="5"/>-->
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+      
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <!--Header Menu-->
+        <Menu VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource BackgroundGreenBrush}">
+            <MenuItem Header="File">
+                <MenuItem Header="Load file" Command="{Binding LoadFileCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Icons/openFile.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save" Command="{Binding SaveAllCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Icons/save.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save As" Command="{Binding SaveAsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Icons/saveAs.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Search"/>
+            <MenuItem Header="Settings"/>
+        </Menu>
+
+        <!--<GridSplitter Width="5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Stretch" Background="{StaticResource GreenBrush}"/>-->
         
+        <!--Left side-->
+        
+            <TextBox Grid.Column="0" Grid.Row="1" Style="{StaticResource SearchBox}" Tag="Search..." BorderThickness="0 0 2 0"
+                     Text="{Binding SearchTextBox,Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Effect>
+                    <DropShadowEffect ShadowDepth="3" Color="LightGray" Direction="-90"/>
+                </TextBox.Effect>
+        </TextBox>
+
+
+        <ListBox Margin="0 4 0 0" Grid.Column="0" Grid.Row="2" Grid.RowSpan="4" ItemsSource="{Binding TranslationItemListDisplay,UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource MainListBox}"
+                 SelectedItem="{Binding SelectedItem,Mode=OneWayToSource}">
+           
+        </ListBox>
+
+        <!--Right Side-->
+
+        <TextBox Grid.Column="2" Grid.Row="1" Style="{StaticResource SearchBox}" Tag="Offline Dictionary..." 
+                 BorderThickness="2 0 0 0" Text="{Binding SearchTextBoxDictionary,UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="3" Color="LightGray" Direction="-90"/>
+            </TextBox.Effect>
+        </TextBox>
+
+        <Border Margin="0 4 0 0" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Background="{StaticResource BackgroundGreenBrush}" 
+                BorderThickness="2 0 0 0" BorderBrush="{StaticResource GreenBrush}">
+            <ListBox ItemsSource="{Binding DictionaryItemListDisplay,UpdateSourceTrigger=PropertyChanged}" 
+                     Style="{StaticResource DictionaryListBox}" SelectedItem="{Binding SelectedPDItem,Mode=TwoWay}" SelectedIndex="{Binding SelectedPDIndex}" >
+                <ListBox.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeletePDItemCommand}"/>
+                </ListBox.InputBindings>
+            </ListBox>
+
+        </Border>
+        <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource MainButton}" Content="Add to personal dictionary" Command="{Binding AddPDItem}"/>
+
+
+
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" SelectionChanged="TextBox_SelectionChanged" Name="textBoxOriginal" Padding="20 20 20 0" Style="{StaticResource MainTextBox}" VerticalAlignment="Stretch" Text="{Binding OriginalTextBox,Mode=OneWay}">
+                <TextBox.InputBindings>
+                    <KeyBinding Modifiers="Ctrl" Key="D" Command="{Binding SearchDefinitionCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <TextBlock Margin="30 0 0 0" Grid.Row="1" Foreground="Gray"  Text="{Binding SelectedItem.Note,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        
+        <GridSplitter Height="3" Grid.Row="3"  Grid.Column="1" HorizontalAlignment="Stretch" Grid.IsSharedSizeScope="False" Background="{StaticResource GreenBrush}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource MainTextBox}" Text="{Binding TranslatedTextBox,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        
+
+        <Border Grid.Row="5" Grid.Column="1" Background="{StaticResource BackgroundGreenBrush}" />
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+            <Button  Width="90" Content="Submit" Style="{StaticResource MainButton}" Margin="10 5 10 5" HorizontalAlignment="Right" 
+                     Command="{Binding SaveTranslationCommand}" IsEnabled="{Binding SubmitEnabled,UpdateSourceTrigger=PropertyChanged}"/>
+            <Button  Width="160" Content="Copy Translated Text" Style="{StaticResource MainButton}" Margin=" 20 5" HorizontalAlignment="Right" Command="{Binding CopyTextCommand}"/>
+            <TextBlock Text="{Binding WordCount, UpdateSourceTrigger=PropertyChanged}" Width="250"  Foreground="Gray" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+        </StackPanel>
+       
     </Grid>
+
+
 </Window>

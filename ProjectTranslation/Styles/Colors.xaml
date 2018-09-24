@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ProjectTranslation.Styles">
+
+    <Color x:Key="Green">#A4BF82</Color>
+    <Color x:Key="LighterGreen">#EFE6C8</Color>
+    <Color x:Key="TextGreen">#886807</Color>
+    <Color x:Key="BackgroundGreen">#F6F5F1</Color>
+    <Color x:Key="SelectionGreen">#ECEBE8</Color>
+    <Color x:Key="DarkerGreen">#86a55c</Color>
+    <Color x:Key="LighterGray">#777</Color>
+    <Color x:Key="DarkerGray">#555</Color>
+
+    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource Green}"/>
+    <SolidColorBrush x:Key="LighterGreenBrush" Color="{StaticResource LighterGreen}"/>
+    <SolidColorBrush x:Key="TextGreenBrush" Color="{StaticResource TextGreen}"/>
+    <SolidColorBrush x:Key="BackgroundGreenBrush" Color="{StaticResource BackgroundGreen}"/>
+    <SolidColorBrush x:Key="SelectionGreenBrush" Color="{StaticResource SelectionGreen}"/>
+    <SolidColorBrush x:Key="DarkerGreenBrush" Color="{StaticResource DarkerGreen}"/>
+    <SolidColorBrush x:Key="LighterGrayBrush" Color="{StaticResource LighterGray}"/>
+    <SolidColorBrush x:Key="DarkerGrayBrush" Color="{StaticResource DarkerGray}"/>
+
+
+</ResourceDictionary>
