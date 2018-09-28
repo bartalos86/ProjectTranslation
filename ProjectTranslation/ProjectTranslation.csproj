@@ -65,21 +65,28 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToIconConverter.cs" />
+    <Compile Include="Data\ComboBoxFontFamily.cs" />
     <Compile Include="Data\DictionaryItem.cs" />
+    <Compile Include="Data\SettingsData.cs" />
     <Compile Include="Data\TranslationItem.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Functions\DialogManager.cs" />
     <Compile Include="Functions\PersonalDictionaryManager.cs" />
+    <Compile Include="Functions\SettingsManager.cs" />
     <Compile Include="Functions\TransaltionItemManager.cs" />
     <Compile Include="AddDictionaryItemWindow.xaml.cs">
       <DependentUpon>AddDictionaryItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\AddDictionaryItemViewModel.cs" />
+    <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Page Include="DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,11 +107,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,7 +170,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Fonts\OpenSans\OpenSans-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\OpenSans\OpenSans-Bold.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-BoldItalic.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-ExtraBold.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-ExtraBoldItalic.ttf" />
@@ -190,6 +209,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\worldwide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\switchoff.png" />
+    <Resource Include="Images\switchon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\swoff.svg" />
+    <Content Include="Images\swon.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.1.3\build\Fody.targets" Condition="Exists('..\packages\Fody.3.1.3\build\Fody.targets')" />

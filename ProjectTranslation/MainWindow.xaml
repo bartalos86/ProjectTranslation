@@ -55,7 +55,7 @@
                 <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Search"/>
-            <MenuItem Header="Settings"/>
+            <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand}"/>
         </Menu>
 
         <!--<GridSplitter Width="5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Stretch" Background="{StaticResource GreenBrush}"/>-->

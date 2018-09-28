@@ -31,7 +31,9 @@ namespace ProjectTranslation.ViewModels
 
             TransaltionItemManager.Initialise(this);
             PersonalDictionaryManager.Initialise(this);
+            SettingsManager.Initialise(this);
 
+           CurrentSettings = SettingsManager.LoadSettings();
 
             PersonalDictionaryManager.ManagePDLoad();
 
@@ -141,6 +143,7 @@ namespace ProjectTranslation.ViewModels
                 }
 
                 PersonalDictionaryManager.ManageSavePD();
+                SettingsManager.HandleSettingsSave();
 
             });
             //Because it's first needs to be declared
@@ -170,6 +173,18 @@ namespace ProjectTranslation.ViewModels
             SearchDefinitionCommand = new RelayCommand(() => {
                 SearchTextBoxDictionary = SelectedTextOriginal;
 
+            });
+
+            OpenSettingsCommand = new RelayCommand(() => {
+
+                SettingsWindow settingsWindow = new SettingsWindow();
+                var dataContext = (SettingsWindowViewModel)settingsWindow.DataContext;
+                dataContext.CurrentSettings = CurrentSettings;
+
+                if (settingsWindow.ShowDialog() == true)
+                    CurrentSettings = dataContext.ReturnSettings;
+
+             
             });
 
         mWindow.Closed += (sender, e) => { if (!closeExecuted) ExitCommand.Execute(null); };
@@ -331,6 +346,7 @@ namespace ProjectTranslation.ViewModels
         public ICommand AddPDItem { get; set; }
         public ICommand DeletePDItemCommand { get; set; }
         public ICommand SearchDefinitionCommand { get; set; }
+        public ICommand OpenSettingsCommand { get; set; }
 
         public ICommand CloseWindowCommand { get; set; }
         public ICommand MinimizeWindowCommand { get; set; }
@@ -352,7 +368,8 @@ namespace ProjectTranslation.ViewModels
         private TranslationItem _selectedItem;
         public TranslationItem PreviousSelectedItem { get; set; }
 
-       
+        public SettingsData CurrentSettings { get; set; }
+
         public int SelectedPDIndex { get; set; }
         #endregion
 

@@ -11,9 +11,9 @@
             <Setter Property="BorderBrush" Value="{StaticResource GreenBrush}"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
            
-            <Setter Property="FontSize" Value="{StaticResource FontSizeSMedium}"/>
+            <Setter Property="FontSize" Value="{Binding CurrentSettings.FontSize}"/>
             <Setter Property="Padding" Value="20"/>
-            <Setter Property="FontFamily" Value="{StaticResource OpenSans Regular}"/>
+            <Setter Property="FontFamily" Value="{Binding CurrentSettings.FontFamily, FallbackValue={StaticResource OpenSans Regular},UpdateSourceTrigger=PropertyChanged}"/>
             <Setter Property="SelectionBrush" Value="{StaticResource GreenBrush}"/>
         </Style.Setters>
 

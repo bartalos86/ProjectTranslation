@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:PasswordManagerGeri.Styles">
+
+    <Style TargetType="CheckBox" x:Key="CheckBoxDefault">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{TemplateBinding Tag}" Foreground="White" FontSize="18" Padding="10 0"/>
+                        <Image x:Name="Image" Height="25" Width="90"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="Image" Property="Source" Value="/ProjectTranslation;component/Images/switchoff.png"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="Image" Property="Source" Value="/ProjectTranslation;component/Images/switchon.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="CheckBox" x:Key="CheckBoxToggle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="Image" Height="25" Width="200"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="Image" Property="Source" Value="/PasswordManagerGeri;component/Images/Styling/checkS1.png"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="Image" Property="Source" Value="/PasswordManagerGeri;component/Images/Styling/checkS2.png"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
