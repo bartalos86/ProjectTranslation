@@ -42,7 +42,7 @@
             <CheckBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Style="{StaticResource CheckBoxDefault}" IsChecked="{Binding IsAutosave}"/>
             
             <!--Forth Row-->
-
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Target Language:" Style="{StaticResource DefaultTextBlock}"/>
             <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Style="{StaticResource LanguageComboBox}"
                       ItemsSource="{Binding LanguageList}" SelectedItem="{Binding SelectedTargetLanguage}"/>
 
