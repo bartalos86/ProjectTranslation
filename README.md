@@ -16,4 +16,4 @@ You can even search in your file.
 
 
 #Images 
-[Image of the software example](https://image.ibb.co/izMr7f/Screenshot-5.png)
+![Image of the software example](https://image.ibb.co/izMr7f/Screenshot-5.png)
