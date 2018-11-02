@@ -17,7 +17,15 @@ namespace ProjectTranslation.ViewModels
         {
             mWindow = window;
             FontList = new ObservableCollection<ComboBoxFontFamily>();
+            LanguageList = new ObservableCollection<ComboBoxLanguage> {
+                new ComboBoxLanguage("Hungarian"),
+                new ComboBoxLanguage("Slovak"),
+            new ComboBoxLanguage("German"),
+            new ComboBoxLanguage("French"),
+            new ComboBoxLanguage("Spanish")};
             MinimizeWindowCommand = new RelayCommand(() => { if (mWindow.WindowState != WindowState.Minimized) mWindow.WindowState = WindowState.Minimized; });
+
+            
 
             FontList.Add(new ComboBoxFontFamily("Default"));
             foreach (var family in Fonts.SystemFontFamilies)
@@ -36,7 +44,9 @@ namespace ProjectTranslation.ViewModels
                     {
                         FontFamily = new FontFamily(SelectedFontFamily.FontName),
                         FontSize = FontSize,
-                        IsAutosave = IsAutosave
+                        IsAutosave = IsAutosave,
+                        TargetLanguage = SelectedTargetLanguage.TargetLanguageName
+                        
                     };
                     mWindow.DialogResult = true;
                     mWindow.Close();
@@ -52,8 +62,8 @@ namespace ProjectTranslation.ViewModels
             {
                 SelectedFontFamily = FontList.Single(font => font.FontName.Equals(CurrentSettings.FontFamily.Source));
                 IsAutosave = CurrentSettings.IsAutosave;
-                FontSize = CurrentSettings.FontSize; 
-
+                FontSize = CurrentSettings.FontSize;
+                SelectedTargetLanguage = LanguageList.Single(lang => lang.TargetLanguageName == CurrentSettings.TargetLanguage);
             }
             else
             {
@@ -70,8 +80,12 @@ namespace ProjectTranslation.ViewModels
         public ObservableCollection<ComboBoxFontFamily> FontList { get; set; }
         public ComboBoxFontFamily SelectedFontFamily { get; set; }
 
+        public ObservableCollection<ComboBoxLanguage> LanguageList { get; set; }
+        public ComboBoxLanguage SelectedTargetLanguage { get; set; }
+
         public bool IsAutosave { get; set; }
         public double FontSize { get; set; }
+      
 
         public SettingsData ReturnSettings { get; set; }
 

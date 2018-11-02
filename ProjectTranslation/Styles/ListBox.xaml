@@ -99,9 +99,10 @@
         <Setter Property="MaxHeight" Value="300"/>
         <Setter Property="FontSize" Value="{StaticResource FontSizeMSmall}"/>
         <Setter Property="FontFamily" Value="{StaticResource OpenSans Regular}"/>
+        <Setter Property="Tag" Value="{Binding CurrentSettings.TargetLanguage, Converter={local1:LanguageToFlagConverter},FallbackValue=/Images/Languages/eng.png}"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ListBoxItem">
+                <ControlTemplate TargetType="ListBoxItem"  >
                     <Border HorizontalAlignment="Stretch" IsHitTestVisible="True" Background="{TemplateBinding Background}" Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}">
                         <Grid>
@@ -112,16 +113,29 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             
-                            <Image MaxHeight="25" Grid.Column="0" Margin="5" Source="/Images/Icons/eng.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image MaxHeight="25" Grid.Column="0" Margin="5" Source="/Images/Languages/eng.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             <TextBlock Grid.Column="1" FontSize="{TemplateBinding FontSize}" Text="{Binding Original}" HorizontalAlignment="Left" 
                                        VerticalAlignment="Center" FontFamily="{TemplateBinding FontFamily}" TextWrapping="WrapWithOverflow" MaxWidth="130"/>
-                            <Image MaxHeight="25" Margin="5" Grid.Column="2"  Source="/Images/Icons/hun.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image MaxHeight="25" Margin="5" Grid.Column="2" Name="lang2" Source="{TemplateBinding Tag}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+
+
                             <TextBlock Grid.Column="3" FontSize="{TemplateBinding FontSize}" Text="{Binding Translation}" HorizontalAlignment="Left"
                                        VerticalAlignment="Center" FontFamily="{TemplateBinding FontFamily}" TextWrapping="WrapWithOverflow" MaxWidth="130"/>
 
 
                         </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                      
+                        
+                        <DataTrigger Binding="{Binding CurrentSettings.TargetLanguage}" Value="Hungarian">
+                            <Setter TargetName="lang2" Property="Source" Value="/Images/Languages/hun.png"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

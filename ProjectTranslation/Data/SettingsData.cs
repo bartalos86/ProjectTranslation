@@ -1,13 +1,12 @@
-﻿
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System;
 using System.Windows;
 using System.Windows.Media;
 
 namespace ProjectTranslation.Data
 {
-    
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class SettingsData
     {
         public SettingsData()
@@ -15,6 +14,7 @@ namespace ProjectTranslation.Data
             FontFamily = new FontFamily("Default");
             FontSize = 15.3;
             IsAutosave = false;
+            TargetLanguage = "Hungarian";
         }
 
         [JsonProperty]
@@ -23,5 +23,7 @@ namespace ProjectTranslation.Data
         public double FontSize { get; set; }
         [JsonProperty]
         public bool IsAutosave { get; set; }
+        [JsonProperty]
+        public string TargetLanguage { get; set; }
     }
 }

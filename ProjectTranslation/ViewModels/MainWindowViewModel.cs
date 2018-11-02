@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
@@ -35,7 +37,7 @@ namespace ProjectTranslation.ViewModels
 
            CurrentSettings = SettingsManager.LoadSettings();
 
-            PersonalDictionaryManager.ManagePDLoad();
+            PersonalDictionaryManager.ManagePDLoad(PersonalDictionaryManager.OperationType.Load);
 
 
             foreach (var item in DictionaryItemListFull)
@@ -53,8 +55,6 @@ namespace ProjectTranslation.ViewModels
             MinimizeWindowCommand = new RelayCommand(() => { if (mWindow.WindowState != WindowState.Minimized) mWindow.WindowState = WindowState.Minimized; });
             MaximizeWindowCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
             
-
-
             LoadFileCommand = new RelayCommand(() =>
             {
 
@@ -76,6 +76,7 @@ namespace ProjectTranslation.ViewModels
                         TranslationItemListFull.Clear();
                         TranslationItemListDisplay.Clear();
                         TransaltionItemManager.LoadXmlFile(fd.FileName);
+                        
                     }
 
                 }
@@ -95,14 +96,12 @@ namespace ProjectTranslation.ViewModels
 
                 
             });
-
             SaveAllCommand = new RelayCommand(() =>
             {
                 TransaltionItemManager.OptimisedSaveAllNoDialog();
                 PersonalDictionaryManager.ManageSavePD();
                 OrderTranslationList();
             });
-
             SaveAsCommand = new RelayCommand(() =>
             {
                 if (file != null)
@@ -129,7 +128,7 @@ namespace ProjectTranslation.ViewModels
             });
             ExitCommand = new RelayCommand(() =>
             {
-                if (IsAutosaveEnabled)
+                if (CurrentSettings.IsAutosave)
                 {
                     TransaltionItemManager.OptimisedSaveAllNoDialog();
                     closeExecuted = true;
@@ -143,6 +142,7 @@ namespace ProjectTranslation.ViewModels
                 }
 
                 PersonalDictionaryManager.ManageSavePD();
+                if(!UpdateManager.IsDeletedSettings)
                 SettingsManager.HandleSettingsSave();
 
             });
@@ -155,7 +155,6 @@ namespace ProjectTranslation.ViewModels
                 PersonalDictionaryManager.ManageDictionaryItemAdding();
               //  MessageBox.Show(DictionaryItemListFull.Count.ToString());
             });
-
             DeletePDItemCommand = new RelayCommand(() => {
                 if(SelectedPDItem != null)
                 {
@@ -169,10 +168,8 @@ namespace ProjectTranslation.ViewModels
                     
 
             });
-
             SearchDefinitionCommand = new RelayCommand(() => {
                 SearchTextBoxDictionary = SelectedTextOriginal;
-
             });
 
             OpenSettingsCommand = new RelayCommand(() => {
@@ -180,14 +177,49 @@ namespace ProjectTranslation.ViewModels
                 SettingsWindow settingsWindow = new SettingsWindow();
                 var dataContext = (SettingsWindowViewModel)settingsWindow.DataContext;
                 dataContext.CurrentSettings = CurrentSettings;
-
+                bool langChanged = false;
                 if (settingsWindow.ShowDialog() == true)
+                {
+                    if (CurrentSettings.TargetLanguage != dataContext.ReturnSettings.TargetLanguage)
+                    {
+                        PersonalDictionaryManager.ManageSavePD();
+                        langChanged = true;
+                    }
+                        
+                       
+
                     CurrentSettings = dataContext.ReturnSettings;
+                    if(langChanged)
+                    PersonalDictionaryManager.ManagePDReload();
+                }
+                   
 
              
             });
 
-        mWindow.Closed += (sender, e) => { if (!closeExecuted) ExitCommand.Execute(null); };
+            mWindow.Closed += (sender, e) => { if (!closeExecuted) ExitCommand.Execute(null); };
+
+            CheckForUpdateCommand = new RelayCommand(async() => {
+                bool response = false;
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                Task.Factory.StartNew(()=> {
+                    while (!response)
+                    {
+                        ActionInProgressText = "Checking for updates.  ";
+                        Thread.Sleep(500);
+                        ActionInProgressText = "Checking for updates.. ";
+                        Thread.Sleep(500);
+                        ActionInProgressText = "Checking for updates...";
+                        Thread.Sleep(500);
+                    }
+                    ActionInProgressText = "";
+                });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+                response = await UpdateManager.CheckForUpdateAsync();
+
+
+            });
             #endregion
         }
 
@@ -244,7 +276,7 @@ namespace ProjectTranslation.ViewModels
             {
 
                 IEnumerable<TranslationItem> temp = TranslationItemListFull.Where(elem => elem.Translated.ToLower().Contains(SearchTextBox.ToLower()) ||
-               elem.Original.ToLower().Contains(SearchTextBox.ToLower()));
+               elem.Original.ToLower().Replace(" ","").Contains(SearchTextBox.ToLower().Replace(" ","")));
 
                 TranslationItemListDisplay.Clear();
 
@@ -268,7 +300,7 @@ namespace ProjectTranslation.ViewModels
             {
 
                 IEnumerable<DictionaryItem> temp = DictionaryItemListFull.Where(elem => elem.Translation.ToLower().Contains(SearchTextBoxDictionary.ToLower()) ||
-               elem.Original.ToLower().Contains(SearchTextBoxDictionary.ToLower()));
+               elem.Original.ToLower().Replace(" ","").Contains(SearchTextBoxDictionary.ToLower().Replace(" ","")));
 
                 DictionaryItemListDisplay.Clear();
 
@@ -306,7 +338,7 @@ namespace ProjectTranslation.ViewModels
                 WordCount = $"Word count: {OriginalTextBox.Length}/{TranslatedTextBox.Length}";
 
             //Responsible for autosave feature
-            if (IsAutosaveEnabled)
+            if (CurrentSettings.IsAutosave)
                 if (SelectedItem != null && autosaveCounter == 10)
                 {
                     autosaveCounter = 0;
@@ -347,6 +379,7 @@ namespace ProjectTranslation.ViewModels
         public ICommand DeletePDItemCommand { get; set; }
         public ICommand SearchDefinitionCommand { get; set; }
         public ICommand OpenSettingsCommand { get; set; }
+        public ICommand CheckForUpdateCommand { get; set; }
 
         public ICommand CloseWindowCommand { get; set; }
         public ICommand MinimizeWindowCommand { get; set; }
@@ -359,6 +392,8 @@ namespace ProjectTranslation.ViewModels
         public string WordCount { get; set; }
         public bool IsAutosaveEnabled { get; set; }
         public string SelectedTextOriginal { get; set; }
+
+        public string ActionInProgressText { get; set; }
 
         public ObservableCollection<TranslationItem> TranslationItemListFull { get; set; }
         public ObservableCollection<TranslationItem> TranslationItemListDisplay { get; set; }

@@ -8,7 +8,8 @@
         Title="Crowdin Offline Translation Manager" Height="850" Width="1400" WindowStyle="None" AllowsTransparency="True" Style="{StaticResource DefaultWindow}">
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="L" Command="{Binding LoadFileCommand}"/>
-        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveAllCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="A" Command="{Binding SaveAllCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding OpenSettingsCommand}"/>
     </Window.InputBindings>
 
     <WindowChrome.WindowChrome>
@@ -55,8 +56,13 @@
                 <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Search"/>
-            <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand}"/>
+            <MenuItem Header="Program" >
+                <MenuItem Header="Settings" Command="{Binding OpenSettingsCommand}"/>
+                <MenuItem Header="Check for Update" Command="{Binding CheckForUpdateCommand}"/>
+            </MenuItem>
         </Menu>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Width="200" TextAlignment="Center" Text="{Binding ActionInProgressText,FallbackValue=Placeholder}" Foreground="{StaticResource TextGreenBrush}"/>
 
         <!--<GridSplitter Width="5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Stretch" Background="{StaticResource GreenBrush}"/>-->
         
@@ -87,7 +93,7 @@
         <Border Margin="0 4 0 0" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Background="{StaticResource BackgroundGreenBrush}" 
                 BorderThickness="2 0 0 0" BorderBrush="{StaticResource GreenBrush}">
             <ListBox ItemsSource="{Binding DictionaryItemListDisplay,UpdateSourceTrigger=PropertyChanged}" 
-                     Style="{StaticResource DictionaryListBox}" SelectedItem="{Binding SelectedPDItem,Mode=TwoWay}" SelectedIndex="{Binding SelectedPDIndex}" >
+                     Style="{DynamicResource DictionaryListBox}" SelectedItem="{Binding SelectedPDItem,Mode=TwoWay}" SelectedIndex="{Binding SelectedPDIndex}" >
                 <ListBox.InputBindings>
                     <KeyBinding Key="Delete" Command="{Binding DeletePDItemCommand}"/>
                 </ListBox.InputBindings>

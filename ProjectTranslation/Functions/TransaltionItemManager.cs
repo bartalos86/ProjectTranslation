@@ -213,6 +213,32 @@ namespace ProjectTranslation.Functions
             {
                 mViewModel.file = XElement.Load(path);
                 IEnumerable<XElement> fileElemets = mViewModel.file.Elements();
+
+                //Loads the personal dictionary for the target language of the file
+                switch(fileElemets.ToList()[0].Attribute("target-language").Value){
+                    case "hu":
+                        mViewModel.CurrentSettings.TargetLanguage = "Hungarian";
+                        PersonalDictionaryManager.ManagePDReload();
+                        break;
+                    case "sk":
+                        mViewModel.CurrentSettings.TargetLanguage = "Slovak";
+                        PersonalDictionaryManager.ManagePDReload();
+                        break;
+                    case "es":
+                        mViewModel.CurrentSettings.TargetLanguage = "Spanish";
+                        PersonalDictionaryManager.ManagePDReload();
+                        break;
+                    case "fr":
+                        mViewModel.CurrentSettings.TargetLanguage = "French";
+                        PersonalDictionaryManager.ManagePDReload();
+                        break;
+                    case "de":
+                        mViewModel.CurrentSettings.TargetLanguage = "German";
+                        PersonalDictionaryManager.ManagePDReload();
+                        break;
+                }
+                
+
                 IEnumerable<XElement> thBody = fileElemets.Elements().Elements();
 
                 foreach (var transUnit in thBody) // <trans-unit>
@@ -221,7 +247,7 @@ namespace ProjectTranslation.Functions
                     XElement source = subTRUnit[0];
                     XElement target = subTRUnit[1];
                     //Sets the title of the item in the listbox
-                    string title = source.Value.Length < 100 ? source.Value : source.Value.Substring(0, 100).Replace(Environment.NewLine,"");
+                    string title = source.Value.Length < 100 ? source.Value : source.Value.Substring(0, 100).Replace(Environment.NewLine,"").Replace("\n","");
 
                     //Parses the loaded item, but before checks if it is ment for translation
                     if (CheckIsMentForTranslation(transUnit))

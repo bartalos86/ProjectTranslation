@@ -97,5 +97,11 @@ namespace ProjectTranslation.Functions
         {
             ManageFileSaveOrCreateNew(OperationType.Save);
         }
+
+        public static void HandleSettingsDelete()
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+        }
     }
 }

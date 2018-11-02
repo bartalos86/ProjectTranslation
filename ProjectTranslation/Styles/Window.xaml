@@ -120,7 +120,7 @@
                                     </Button>
 
                                     <Viewbox Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Padding="2" FontFamily="Arial Black" Foreground="White" Text="{TemplateBinding Title}"/>
+                                        <TextBlock Padding="2" FontFamily="{StaticResource OpenSans SemiBold}" Foreground="White" Text="{TemplateBinding Title}"/>
                                     </Viewbox>
 
                                     <StackPanel Grid.Column="2" Orientation="Horizontal"  HorizontalAlignment="Right">
