@@ -14,6 +14,13 @@ You can even search in your file.
 - Beautiful theme (relatively :) )
 - Multiple target language selection
 
+## Download
+
+Version | Link
+------------ | -------------
+Beta v1.0 | [Download](https://www.dropbox.com/s/vrc589wxjlo0lf4/ProjectTranslation_Beta_v1.0.exe?dl=1)
+
+
 
 # Images 
 ![Image of the software example](https://image.ibb.co/izMr7f/Screenshot-5.png)
