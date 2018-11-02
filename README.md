@@ -15,5 +15,5 @@ You can even search in your file.
 - Multiple target language selection
 
 
-#Images 
+# Images 
 ![Image of the software example](https://image.ibb.co/izMr7f/Screenshot-5.png)
