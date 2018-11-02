@@ -18,7 +18,7 @@ You can even search in your file.
 
 Version | Link
 ------------ | -------------
-Beta v1.0 | [Download] (https://www.dropbox.com/s/vrc589wxjlo0lf4/ProjectTranslation_Beta_v1.0.exe?dl=1)
+Beta v1.0 | [Download](https://www.dropbox.com/s/vrc589wxjlo0lf4/ProjectTranslation_Beta_v1.0.exe?dl=1)
 
 
 
