@@ -220,10 +220,8 @@
     <Resource Include="Fonts\OpenSans\OpenSans-Regular.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-SemiBold.ttf" />
     <Resource Include="Fonts\OpenSans\OpenSans-SemiBoldItalic.ttf" />
-    <None Include="bartalos86.pfx" />
     <None Include="General.snk" />
     <None Include="packages.config" />
-    <None Include="ProjectTranslation.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
