@@ -16,6 +16,8 @@ namespace ProjectTranslation
         public event EventHandler<string> UpdateSelectedText;
         public MainWindow()
         {
+
+            
             //AssemblyName an = new AssemblyName();
             //FileStream fs = File.OpenRead("General.snk");
             //try

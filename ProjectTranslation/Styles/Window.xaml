@@ -61,9 +61,9 @@
                                     </StackPanel>
                                         
                                     </Grid>
-                              
 
-                                <Border Grid.Row="1" CornerRadius="5" Background="{StaticResource BackgroundGreenBrush}" Padding="2">
+
+                                <Border Grid.Row="1" CornerRadius="0 0 5 5" Background="{StaticResource BackgroundGreenBrush}" Padding="2">
                                     <ContentPresenter />
                                 </Border>
                             </Grid>
