@@ -110,16 +110,22 @@
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" SelectionChanged="TextBox_SelectionChanged" Name="textBoxOriginal" Padding="20 20 20 0" Style="{StaticResource MainTextBox}" VerticalAlignment="Stretch" Text="{Binding OriginalTextBox,Mode=OneWay}">
+            <TextBox Grid.Row="0" SelectionChanged="TextBox_SelectionChanged" Name="textBoxOriginal" Padding="20 20 20 0" Style="{StaticResource BigTextBox}"
+                     VerticalAlignment="Stretch" Text="{Binding OriginalTextBox,Mode=OneWay}" 
+                     Tag="Welcome in our application. &#x0a;Your text in the original language will be displayed here.&#x0a;
+                     &#x0a;Quick shortcuts:&#x0a;CTRL-L - Load a file &#x0a;CTRL-D - Search for selected word in yout personal dictionary
+                     &#x0a;CTRL-S - Open settings" >
                 <TextBox.InputBindings>
                     <KeyBinding Modifiers="Ctrl" Key="D" Command="{Binding SearchDefinitionCommand}"/>
                 </TextBox.InputBindings>
-            </TextBox>
-            <TextBlock Margin="30 0 0 0" Grid.Row="1" Foreground="Gray"  Text="{Binding SelectedItem.Note,UpdateSourceTrigger=PropertyChanged}"/>
+                </TextBox>
+
+                <TextBlock Margin="30 0 0 0" Grid.Row="1" Foreground="Gray"  Text="{Binding SelectedItem.Note,UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         
         <GridSplitter Height="3" Grid.Row="3"  Grid.Column="1" HorizontalAlignment="Stretch" Grid.IsSharedSizeScope="False" Background="{StaticResource GreenBrush}"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource MainTextBox}" Text="{Binding TranslatedTextBox,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource BigTextBox}" Tag="And here will go your translated text."
+                 Text="{Binding TranslatedTextBox,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
         
 

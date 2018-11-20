@@ -14,6 +14,7 @@
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="true">
@@ -99,7 +100,7 @@
         <Setter Property="MaxHeight" Value="300"/>
         <Setter Property="FontSize" Value="{StaticResource FontSizeMSmall}"/>
         <Setter Property="FontFamily" Value="{StaticResource OpenSans Regular}"/>
-        <Setter Property="Tag" Value="{Binding CurrentSettings.TargetLanguage, Converter={local1:LanguageToFlagConverter},FallbackValue=/Images/Languages/eng.png}"/>
+        <Setter Property="Tag" Value="{Binding CurrentSettings.TargetLanguage,UpdateSourceTrigger=PropertyChanged, Converter={local1:LanguageToFlagConverter},FallbackValue='pack://application:,,,/ProjectTranslation;component/Images/Languages/eng.png'}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem"  >
@@ -112,30 +113,25 @@
                                 <ColumnDefinition Width="0.5*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            
-                            <Image MaxHeight="25" Grid.Column="0" Margin="5" Source="/Images/Languages/eng.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                            <Image MaxHeight="20" Grid.Column="0" Margin="5" Source="/Images/Languages/eng.png" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             <TextBlock Grid.Column="1" FontSize="{TemplateBinding FontSize}" Text="{Binding Original}" HorizontalAlignment="Left" 
                                        VerticalAlignment="Center" FontFamily="{TemplateBinding FontFamily}" TextWrapping="WrapWithOverflow" MaxWidth="130"/>
-                            <Image MaxHeight="25" Margin="5" Grid.Column="2" Name="lang2" Source="{TemplateBinding Tag}"
+                            <Image MaxHeight="20" Margin="5" Grid.Column="2" Name="lang2" Source="{Binding TargetLanguageIcon}"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-
 
 
                             <TextBlock Grid.Column="3" FontSize="{TemplateBinding FontSize}" Text="{Binding Translation}" HorizontalAlignment="Left"
                                        VerticalAlignment="Center" FontFamily="{TemplateBinding FontFamily}" TextWrapping="WrapWithOverflow" MaxWidth="130"/>
 
-
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                      
-                        
                         <DataTrigger Binding="{Binding CurrentSettings.TargetLanguage}" Value="Hungarian">
-                            <Setter TargetName="lang2" Property="Source" Value="/Images/Languages/hun.png"/>
+                            <Setter TargetName="lang2" Property="Source" Value="pack://application:,,,/ProjectTranslation;component/Images/Languages/hun.png"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -147,16 +143,28 @@
     
     <Style TargetType="ListBox" x:Key="MainListBox">
         <Setter Property="BorderThickness" Value="0 0 2 0"/>
-        <Setter Property="Background" Value="{StaticResource BackgroundGreenBrush}"/>
+        
         <Setter Property="BorderBrush" Value="{StaticResource GreenBrush}"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ListboxItemMain}"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
-       
+
+   
             
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
               
             </Trigger>
+
+            <DataTrigger Binding="{Binding DucumentListHasItems,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="/Images/NoItems.png"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DucumentListHasItems,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                <Setter Property="Background" Value="{StaticResource BackgroundGreenBrush}"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -164,6 +172,20 @@
     <Style TargetType="ListBox" x:Key="DictionaryListBox" x:Name="dlistbox" BasedOn="{StaticResource MainListBox}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource DictionaryListBoxItem}"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding DictionaryHasItems,UpdateSourceTrigger=PropertyChanged}" Value="False">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="/Images/NoItems.png"/>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DictionaryHasItems,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                <Setter Property="Background" Value="{StaticResource BackgroundGreenBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+        
     </Style>
       
     

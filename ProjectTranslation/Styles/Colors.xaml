@@ -8,7 +8,7 @@
     <Color x:Key="BackgroundGreen">#F6F5F1</Color>
     <Color x:Key="SelectionGreen">#ECEBE8</Color>
     <Color x:Key="DarkerGreen">#86a55c</Color>
-    <Color x:Key="LighterGray">#777</Color>
+    <Color x:Key="LighterGray">#474747</Color>
     <Color x:Key="DarkerGray">#555</Color>
 
     <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource Green}"/>

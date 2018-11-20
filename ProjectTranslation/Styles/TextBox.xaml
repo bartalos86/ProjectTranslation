@@ -73,10 +73,63 @@
         </Setter>
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}"/>
-        
+
         <Setter Property="BorderBrush" Value="{StaticResource GreenBrush}"/>
-
-
     </Style>
-    
+
+    <Style TargetType="TextBox" x:Key="BigTextBox" BasedOn="{StaticResource MainTextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}" >
+                    <Grid>
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}"
+                                          VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                        </Border>
+
+                        <TextBlock Name="placeholder" TextWrapping="Wrap"  FontWeight="Medium" Opacity="0.3"
+                                       Text="{TemplateBinding Tag}" FontSize="20" FontFamily="{TemplateBinding FontFamily}"
+                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False"
+                                       Padding="{TemplateBinding Padding}" >
+
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" TargetName="border" Value="0.3"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        
+
+        <Setter Property="BorderBrush" Value="{StaticResource GreenBrush}"/>
+    </Style>
+
+
+
 </ResourceDictionary>

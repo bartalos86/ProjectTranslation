@@ -7,9 +7,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{TemplateBinding Tag}" Foreground="White" FontSize="18" Padding="10 0"/>
-                        <Image x:Name="Image" Height="25" Width="90"/>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBlock Text="{TemplateBinding Tag}" Foreground="White" FontSize="18" Padding="3 0"/>
+                        <Image x:Name="Image" Height="25" />
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
 
                     <ControlTemplate.Triggers>
@@ -31,7 +31,7 @@
                 <ControlTemplate TargetType="CheckBox">
                     <StackPanel Orientation="Horizontal">
                         <Image x:Name="Image" Height="25" Width="200"/>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
 
                     <ControlTemplate.Triggers>

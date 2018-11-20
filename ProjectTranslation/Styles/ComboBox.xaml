@@ -7,7 +7,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock FontFamily="{Binding FontName}" Text="{Binding FontName}"
+                    <TextBlock TextAlignment="Center" FontFamily="{Binding FontName}" Text="{Binding FontName}"
                                HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{StaticResource FontSizeRegular }"/>
                 </DataTemplate>
             </Setter.Value>
@@ -19,8 +19,8 @@
             <Setter.Value>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Height="25" Width="30" Source="{Binding TargetLanguageName, Converter={local1:LanguageToFlagConverter}}"/>
-                        <TextBlock Text="{Binding TargetLanguageName}" Margin="15 0 0 0"
+                        <Image Height="15" Margin="15 0 0 0" Source="{Binding TargetLanguageName, Converter={local1:LanguageToFlagConverter}}"/>
+                        <TextBlock Text="{Binding TargetLanguageName, StringFormat=- {0}}" Margin="5 0 0 0"
                                HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{StaticResource FontSizeRegular }"/>
                     </StackPanel>
                    

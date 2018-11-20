@@ -24,6 +24,10 @@ namespace ProjectTranslation.ViewModels
 
         public MainWindowViewModel(MainWindow mWindow)
         {
+            //OriginalTextBox = "Welcome to out application. \n Here will display your unranslated text.";
+           // TranslatedTextBox = "And here will be your translation if available.";
+
+
             TranslationItemListDisplay = new ObservableCollection<TranslationItem>();
             TranslationItemListFull = new ObservableCollection<TranslationItem>();
             DictionaryItemListDisplay = new ObservableCollection<DictionaryItem>();
@@ -40,6 +44,8 @@ namespace ProjectTranslation.ViewModels
 
             foreach (var item in DictionaryItemListFull)
                 DictionaryItemListDisplay.Add(item);
+
+            DictionaryHasItems = DictionaryItemListFull.Count > 0;
 
             mWindow.UpdateSelectedText += (sender, e) => {
                 if (e != null)
@@ -74,7 +80,10 @@ namespace ProjectTranslation.ViewModels
                         TranslationItemListFull.Clear();
                         TranslationItemListDisplay.Clear();
                         TransaltionItemManager.LoadXmlFile(fd.FileName);
-                        
+
+                            DucumentListHasItems = TranslationItemListDisplay.Count > 0; 
+
+
                     }
 
                 }
@@ -90,7 +99,17 @@ namespace ProjectTranslation.ViewModels
             CopyTextCommand = new RelayCommand(() =>
             {
                 if (!string.IsNullOrEmpty(TranslatedTextBox))
+                {
                     Clipboard.SetText(TranslatedTextBox);
+
+                    Task.Factory.StartNew(() => {
+                        ActionInProgressText = "Text Copied Succesfully!";
+                        Thread.Sleep(2000);
+                        ActionInProgressText = "";
+                    });
+                }
+
+                   
 
                 
             });
@@ -161,7 +180,8 @@ namespace ProjectTranslation.ViewModels
                     DictionaryItemListDisplay.Clear();
                     foreach (var item in DictionaryItemListFull)
                         DictionaryItemListDisplay.Add(item);
-                   // PersonalDictionaryManager.UpdateDictionaryItemExistence();
+                    // PersonalDictionaryManager.UpdateDictionaryItemExistence();
+                    DictionaryHasItems = DictionaryItemListFull.Count > 0;
                 }
                     
 
@@ -404,6 +424,9 @@ namespace ProjectTranslation.ViewModels
         public SettingsData CurrentSettings { get; set; }
 
         public int SelectedPDIndex { get; set; }
+
+        public bool DictionaryHasItems { get; set; }
+        public bool DucumentListHasItems { get; set; } = false;
         #endregion
 
         #region Advanced Properties

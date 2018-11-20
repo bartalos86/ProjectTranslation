@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
-
+using System.Windows.Media;
 
 namespace ProjectTranslation
 {
@@ -11,21 +11,23 @@ namespace ProjectTranslation
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string lang = (string)value;
-           // MessageBox.Show(lang);
+            // MessageBox.Show(lang);
+            ImageSourceConverter conv = new ImageSourceConverter();
+
             switch (lang)
             {
                 case "Hungarian":
-                    return "/Images/Languages/hun.png";
+                    return "pack://application:,,,/ProjectTranslation;component/Images/Languages/hun.png";
                 case "German":
-                    return new Uri("/Images/Languages/ger.png", UriKind.Relative);
+                    return "pack://application:,,,/ProjectTranslation;component/Images/Languages/ger.png";
                 case "Slovak":
-                    return "/Images/Languages/slo.png";
+                    return "pack://application:,,,/ProjectTranslation;component/Images/Languages/slo.png";
                 case "French":
-                    return "/Images/Languages/fre.png";
+                    return "pack://application:,,,/ProjectTranslation;component/Images/Languages/fre.png";
                 case "Spanish":
-                    return "/Images/Languages/spa.png";
+                    return "pack://application:,,,/ProjectTranslation;component/Images/Languages/spa.png";
                 default:
-                    return "/Images/Languages/hun.png";
+                    return "pack://application:,,,/ProjectTranslation;component/Images/Languages/unk.jpg";
             }
         }
 

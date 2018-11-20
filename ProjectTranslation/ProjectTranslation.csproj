@@ -284,6 +284,12 @@
   <ItemGroup>
     <Resource Include="worldwide.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Languages\unk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoItems.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.2.12\build\Fody.targets" Condition="Exists('..\packages\Fody.3.2.12\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

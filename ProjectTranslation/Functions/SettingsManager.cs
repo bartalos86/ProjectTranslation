@@ -47,7 +47,7 @@ namespace ProjectTranslation.Functions
                         str.Dispose();
                         return JsonConvert.DeserializeObject<SettingsData>(rawData);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         ManageFileSaveOrCreateNew(OperationType.CreateNew);
                     }

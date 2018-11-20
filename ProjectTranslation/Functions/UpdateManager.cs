@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -40,8 +37,6 @@ namespace ProjectTranslation.Functions
                     }
                        
 
-
-
                 }
                 else
                 {
@@ -51,7 +46,7 @@ namespace ProjectTranslation.Functions
                 stream.Close();
 
             }
-            catch (Exception ex) {
+            catch (Exception ) {
                 DialogManager.Show("An error ocurred... Make sure you are connected to internet.","Error",MessageBoxButton.OK);
             }
             return true;

@@ -42,16 +42,17 @@ namespace ProjectTranslation.Functions
             {
                 if (dataContext.IsSussesfull)
                 {
-                    viewModel.DictionaryItemListFull.Add(new Data.DictionaryItem(dataContext.OriginalText, dataContext.TranslatedText));
+                    viewModel.DictionaryItemListFull.Add(new Data.DictionaryItem(dataContext.OriginalText, dataContext.TranslatedText,viewModel.CurrentSettings.TargetLanguage));
 
                     if(string.IsNullOrEmpty(viewModel.SearchTextBoxDictionary) || viewModel.SearchTextBoxDictionary.Replace(" ", "") == dataContext.OriginalText.Replace(" ", "") || viewModel.SearchTextBoxDictionary.Replace(" ", "") == dataContext.TranslatedText.Replace(" ", ""))
-                    viewModel.DictionaryItemListDisplay.Add(new Data.DictionaryItem(dataContext.OriginalText, dataContext.TranslatedText));
+                    viewModel.DictionaryItemListDisplay.Add(new Data.DictionaryItem(dataContext.OriginalText, dataContext.TranslatedText, viewModel.CurrentSettings.TargetLanguage));
+                    
                 }
               
             };
 
             window.ShowDialog();
-            
+            viewModel.DictionaryHasItems = viewModel.DictionaryItemListFull.Count > 0;
 
         }
 
@@ -84,19 +85,21 @@ namespace ProjectTranslation.Functions
                     if (type == OperationType.Reload)
                         foreach (var itm in tmp)
                             viewModel.DictionaryItemListDisplay.Add(itm);
-                }
 
+                    
+                }
+                
                 reader.Dispose();
             }
         }
 
         public static void ManagePDReload()
         {
-            
+           
             viewModel.DictionaryItemListDisplay.Clear();
             viewModel.DictionaryItemListFull.Clear();
             ManagePDLoad(OperationType.Reload);
-
+            viewModel.DictionaryHasItems = viewModel.DictionaryItemListDisplay.Count > 0;
         }
 
 

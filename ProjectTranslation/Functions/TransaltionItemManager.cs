@@ -290,9 +290,9 @@ namespace ProjectTranslation.Functions
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+               
               //  MessageBox.Show(ex.Message);
                 return false;
             }
