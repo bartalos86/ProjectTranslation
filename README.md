@@ -27,5 +27,5 @@ Beta v1.0 | [Download](https://www.dropbox.com/s/sjrt2lam171rjd6/ProjectTranslat
 ![Image of the software example](https://image.ibb.co/izMr7f/Screenshot-5.png)
 
 # Icon Sources
-https://www.flaticon.com/free-icon/recycling-bin_54324
-https://www.flaticon.com/free-icon/worlwide_254223#term=translation&page=1&position=95
+- https://www.flaticon.com/free-icon/recycling-bin_54324
+- https://www.flaticon.com/free-icon/worlwide_254223#term=translation&page=1&position=95
