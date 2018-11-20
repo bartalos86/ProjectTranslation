@@ -18,9 +18,14 @@ You can even search in your file.
 
 Version | Link
 ------------ | -------------
+Beta v1.1 | [Download](https://www.dropbox.com/s/ab30j1fc0mtlmpa/ProjectTranslation_Beta_V1.1_signed.exe?dl=1)
 Beta v1.0 | [Download](https://www.dropbox.com/s/sjrt2lam171rjd6/ProjectTranslation_Beta_V1.0_signed.exe?dl=1)
 
 
 
 # Images 
 ![Image of the software example](https://image.ibb.co/izMr7f/Screenshot-5.png)
+
+# Icon Sources
+https://www.flaticon.com/free-icon/recycling-bin_54324
+https://www.flaticon.com/free-icon/worlwide_254223#term=translation&page=1&position=95
