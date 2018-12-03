@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
@@ -85,6 +86,7 @@ namespace ProjectTranslation.Functions
         /// </summary>
         public static void DoAutosave()
         {
+           
             //Replaces the current translation fot the selected item
             mViewModel.SelectedItem.Translated = mViewModel.TranslatedTextBox;
             mViewModel.SelectedItem.IsTranslated = false;
@@ -139,8 +141,11 @@ namespace ProjectTranslation.Functions
             if (mViewModel.file != null)
             {
                 IEnumerable<XElement> fileElemets = mViewModel.file.Elements();
-  
-                IEnumerable<XElement> thBody = fileElemets.Elements().Elements();
+                foreach(var file in fileElemets)
+                {
+          
+                
+                IEnumerable<XElement> thBody = file.Elements().Elements();
 
                 foreach (var itm in thBody) // <trans-unit>
                 {
@@ -168,14 +173,15 @@ namespace ProjectTranslation.Functions
                     }
                 }
 
+                }
 
-
-            }else
+            }
+            else
             {
                 DialogManager.Show("You havent selected a file","Warning");
             }
 
-
+           
         }
 
         private static bool CheckIsMentForTranslation(XElement element)
@@ -238,8 +244,10 @@ namespace ProjectTranslation.Functions
                         break;
                 }
                 
+                foreach(var cFile in fileElemets) { 
 
-                IEnumerable<XElement> thBody = fileElemets.Elements().Elements();
+                IEnumerable<XElement> thBody = cFile.Elements().Elements();
+
 
                 foreach (var transUnit in thBody) // <trans-unit>
                 {
@@ -254,6 +262,9 @@ namespace ProjectTranslation.Functions
                     {
                         TranslationItem item = new TranslationItem(title, int.Parse(transUnit.FirstAttribute.Value), target.FirstAttribute == null ? false : target.FirstAttribute.Value == "translated");
                         item.Original = source.Value;
+
+                        //Check if it has a note
+                        if(subTRUnit.Count >= 3)
                         item.Note = subTRUnit[2].Value;
 
                         if (item.IsTranslated)
@@ -280,21 +291,25 @@ namespace ProjectTranslation.Functions
 
                     
                 }
+                }
 
-                if (mViewModel.TranslationItemListFull.Count <= 0)
-                    DialogManager.Show("Sorry but this file is already approved or it isn't meant for translation!","Warning");
 
                 //Sets the loaded file's path and reorders the translation
                 mViewModel.FilePath = path;
                 mViewModel.OrderTranslationList();
 
+                if (mViewModel.TranslationItemListFull.Count <= 0)
+                {
+                    DialogManager.Show("Sorry but this file is already approved or it isn't meant for translation!", "Warning");
+                    return false;
+                }
+
                 return true;
             }
             catch (Exception)
             {
-               
-              //  MessageBox.Show(ex.Message);
-                return false;
+                
+               return false;
             }
         }
 

@@ -8,7 +8,7 @@
         Title="Crowdin Offline Translation Manager" Height="850" Width="1400" WindowStyle="None" AllowsTransparency="True" Style="{StaticResource DefaultWindow}">
     <Window.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="L" Command="{Binding LoadFileCommand}"/>
-        <KeyBinding Modifiers="Ctrl" Key="A" Command="{Binding SaveAllCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="B" Command="{Binding SaveAllCommand}"/>
         <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding OpenSettingsCommand}"/>
     </Window.InputBindings>
 
@@ -62,7 +62,7 @@
             </MenuItem>
         </Menu>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Width="200" TextAlignment="Center" Text="{Binding ActionInProgressText,FallbackValue=Placeholder}" Foreground="{StaticResource TextGreenBrush}"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Width="400" TextAlignment="Center" Text="{Binding ActionInProgressText,FallbackValue=Placeholder}" Foreground="{StaticResource TextGreenBrush}"/>
 
         <!--<GridSplitter Width="5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Stretch" Background="{StaticResource GreenBrush}"/>-->
         
@@ -114,7 +114,8 @@
                      VerticalAlignment="Stretch" Text="{Binding OriginalTextBox,Mode=OneWay}" 
                      Tag="Welcome in our application. &#x0a;Your text in the original language will be displayed here.&#x0a;
                      &#x0a;Quick shortcuts:&#x0a;CTRL-L - Load a file &#x0a;CTRL-D - Search for selected word in yout personal dictionary
-                     &#x0a;CTRL-S - Open settings" >
+                     &#x0a;CTRL-S - Open settings
+                      &#x0a;CTRL-B - Save All" >
                 <TextBox.InputBindings>
                     <KeyBinding Modifiers="Ctrl" Key="D" Command="{Binding SearchDefinitionCommand}"/>
                 </TextBox.InputBindings>

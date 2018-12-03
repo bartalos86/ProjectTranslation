@@ -79,12 +79,20 @@ namespace ProjectTranslation.ViewModels
                     {
                         TranslationItemListFull.Clear();
                         TranslationItemListDisplay.Clear();
-                        TransaltionItemManager.LoadXmlFile(fd.FileName);
+                        bool isLoadSuccesful = TransaltionItemManager.LoadXmlFile(fd.FileName);
 
-                            DucumentListHasItems = TranslationItemListDisplay.Count > 0; 
+                            DucumentListHasItems = TranslationItemListDisplay.Count > 0;
 
+                            Task.Factory.StartNew(() => {
+                                if(isLoadSuccesful)
+                                ActionInProgressText = "Loaded Sussecfully!";
+                                else
+                                    ActionInProgressText = "Failed To load the file! There might be a problem!";
+                                Thread.Sleep(2000);
+                                ActionInProgressText = "";
+                            });
 
-                    }
+                        }
 
                 }
 
@@ -118,6 +126,12 @@ namespace ProjectTranslation.ViewModels
                 TransaltionItemManager.OptimisedSaveAllNoDialog();
                 PersonalDictionaryManager.ManageSavePD();
                 OrderTranslationList();
+
+                Task.Factory.StartNew(() => {
+                    ActionInProgressText = "Saving...";
+                    Thread.Sleep(2000);
+                    ActionInProgressText = "";
+                });
             });
             SaveAsCommand = new RelayCommand(() =>
             {
@@ -357,12 +371,22 @@ namespace ProjectTranslation.ViewModels
 
             //Responsible for autosave feature
             if (CurrentSettings.IsAutosave)
-                if (SelectedItem != null && autosaveCounter == 10)
+                if (SelectedItem != null && autosaveCounter == 50)
                 {
                     autosaveCounter = 0;
-                    TransaltionItemManager.DoAutosave();
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        TransaltionItemManager.DoAutosave();
+                    });
+
+                    Task.Factory.StartNew(() => {
+                        ActionInProgressText = "Autosaving...";
+                        Thread.Sleep(2000);
+                        ActionInProgressText = "";
+                    });
                 }
-                else if (autosaveCounter < 11)
+                else if (autosaveCounter < 51)
                     autosaveCounter++;
 
 
